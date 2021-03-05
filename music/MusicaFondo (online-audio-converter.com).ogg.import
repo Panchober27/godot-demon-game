@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/MusicaFondo (online-audio-converter.com).ogg-f2dfe7db475490d44786fb01a877d030.oggstr"
+
+[deps]
+
+source_file="res://music/MusicaFondo (online-audio-converter.com).ogg"
+dest_files=[ "res://.import/MusicaFondo (online-audio-converter.com).ogg-f2dfe7db475490d44786fb01a877d030.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

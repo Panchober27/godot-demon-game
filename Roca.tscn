@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://roca(atakefuego)/Fire_Attack3.png" type="Texture" id=1]
+[ext_resource path="res://Roca.gd" type="Script" id=2]
+[ext_resource path="res://roca(atakefuego)/Fire_Attack2.png" type="Texture" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "roca2",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "roca",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 18.8271
+
+[node name="Roca" type="RigidBody2D"]
+position = Vector2( 410.167, 235.078 )
+collision_layer = 0
+gravity_scale = 0.0
+script = ExtResource( 2 )
+velocidad_min = 150
+velocidad_max = 350
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -30.7474, -24.5067 )
+scale = Vector2( 1.5, 1.5 )
+frames = SubResource( 1 )
+animation = "roca2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( -62.5703, -37.5992 )
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -36.4709, -25.2928 )
+scale = Vector2( 2.1141, 1.58419 )
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

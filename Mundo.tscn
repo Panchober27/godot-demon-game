@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Roca.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Mundo.gd" type="Script" id=3]
+[ext_resource path="res://Interfaz.tscn" type="PackedScene" id=4]
+[ext_resource path="res://fonts/juego-fondo.png" type="Texture" id=5]
+[ext_resource path="res://music/MusicaFondo (online-audio-converter.com).ogg" type="AudioStream" id=6]
+[ext_resource path="res://music/GameOver.wav" type="AudioStream" id=7]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -2.35715, 1.70067, 0, 0, 0, 0, 798.116, 0.268692, 0, 0, 0, 0, 800.979, 598.833, 0, 0, 0, 0, -0.925171, 598.833, 0, 0, 0, 0, -2.35715, 1.70067 )
+}
+
+[node name="Mundo" type="Node"]
+script = ExtResource( 3 )
+Roca = ExtResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 801.0
+margin_bottom = 601.0
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 432.763, 225.376 )
+
+[node name="RocaTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="InicioTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="PosicionDeInicio" type="Position2D" parent="."]
+position = Vector2( 393.793, 309.306 )
+
+[node name="Camino" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="RocaPosicion" type="PathFollow2D" parent="Camino"]
+position = Vector2( -2.35715, 1.70067 )
+rotation = -0.00178894
+
+[node name="Interfaz" parent="." instance=ExtResource( 4 )]
+
+[node name="AudioFondo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -6.432
+
+[node name="GameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -2.144
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PoolVector2Array( 3.46774, 406.706, 20.2683, 419.63, 51.2848, 411.875, 71.9625, 423.507, 93.9325, 445.477, 143.042, 458.4, 153.381, 453.231, 166.304, 442.892, 188.274, 445.477, 215.414, 444.184, 234.799, 460.985, 265.816, 475.201, 283.908, 497.171, 305.878, 502.34, 433.821, 532.064, 420.898, 546.28, 387.297, 548.865, 361.45, 551.45, 336.895, 550.157, 308.463, 544.988, 282.616, 559.204, 292.955, 569.543, 318.802, 585.051, 351.111, 586.343, 413.144, 585.051, 420.898, 595.39, 2.17538, 597.974 )
+[connection signal="golpe" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="RocaTimer" to="." method="_on_RocaTimer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
+[connection signal="timeout" from="InicioTimer" to="." method="_on_InicioTimer_timeout"]
+[connection signal="iniciar_juego" from="Interfaz" to="." method="nuevo_juego"]
